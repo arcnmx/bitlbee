@@ -270,8 +270,12 @@ void irc_free(irc_t * irc)
 	   before we clear the remaining ones ourselves. */
 	bee_free(irc->b);
 
-	while (irc->users) {
-		irc_user_free(irc, (irc_user_t *) irc->users->data);
+	GHashTableIter iter;
+	gpointer itervalue;
+	g_hash_table_iter_init(&iter, irc->nick_user_hash);
+
+	while (g_hash_table_iter_next(&iter, NULL, &itervalue)) {
+		irc_user_free(irc, (irc_user_t *) itervalue);
 	}
 
 	while (irc->channels) {

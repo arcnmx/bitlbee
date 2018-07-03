@@ -448,7 +448,7 @@ static void irc_cmd_who(irc_t *irc, char **cmd)
 	irc_user_t *iu;
 
 	if (!channel || *channel == '0' || *channel == '*' || !*channel) {
-		irc_send_who(irc, irc->users, "**");
+		// XXX irc_send_who(irc, irc->users, "**");
 	} else if ((ic = irc_channel_by_name(irc, channel))) {
 		irc_send_who(irc, ic->users, channel);
 	} else if ((iu = irc_user_by_name(irc, channel))) {
